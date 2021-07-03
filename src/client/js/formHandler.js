@@ -1,3 +1,20 @@
+const post = async (url = '', data = {}) => {
+    const res = await fetch(url, {
+        method: 'POST',
+        credentials: 'same-origin',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    try {
+        return await res.json()
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 function handleSubmit(event) {
     event.preventDefault()
 

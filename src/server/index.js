@@ -1,13 +1,15 @@
 var path = require('path')
+const PORT = 8080
 const express = require('express')
 const mockAPIResponse = require('./mockAPI.js')
 const dotenv = require('dotenv');
 dotenv.config();
 
 var textapi = new cloud({
-    application_id: process.env.API_ID,
+    //application_id: process.env.API_ID,
     application_key: process.env.API_KEY
 });
+console.log(`Your API key is ${process.env.API_KEY}`);
 
 const app = express()
 
@@ -21,7 +23,7 @@ app.get('/', function (req, res) {
 })
 
 // designates what port the app will listen to for incoming requests
-app.listen(8080, function () {
+app.listen(PORT, function () {
     console.log('Example app listening on port 8080!')
 })
 
