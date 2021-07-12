@@ -1,32 +1,42 @@
-var path = require('path')
-const PORT = 8080
-const express = require('express')
-const mockAPIResponse = require('./mockAPI.js')
+var path = require('path');
+const express = require('express');
+const mockAPIResponse = require('./mockAPI.js');
+const bodyParser = require('body-parser');
+const cors = require('cors');
 const dotenv = require('dotenv');
+
+/* Empty JS object to act as endpoint for all routes */
+articleData = {};
+
 dotenv.config();
+const api_key = process.env.API_KEY;
 
-var textapi = new cloud({
-    //application_id: process.env.API_ID,
-    application_key: process.env.API_KEY
-});
-console.log(`Your API key is ${process.env.API_KEY}`);
+const app = express();
+app.use(cors());
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
+app.use(bodyParser.json());
+app.use(express.static('dist'));
 
-const app = express()
-
-app.use(express.static('dist'))
-
-console.log(__dirname)
+// app.use(express.static(__dirname + '/public'));
+console.log("HERE:" + __dirname);
 
 app.get('/', function (req, res) {
-    // res.sendFile('dist/index.html')
-    res.sendFile(path.resolve('src/client/views/index.html'))
+    res.sendFile(path.resolve('dist/index.html'))
 })
 
 // designates what port the app will listen to for incoming requests
+const PORT = 8082;
 app.listen(PORT, function () {
-    console.log('Example app listening on port 8080!')
+    console.log(`Running on localhost: ${PORT}`);
 })
 
-app.get('/test', function (req, res) {
-    res.send(mockAPIResponse)
+
+app.get('/apiCall', function (req, res) {
+    res.send(api_key);
+})
+
+app.get('/data', function (req, res) {
+    res.send(articleData);
 })

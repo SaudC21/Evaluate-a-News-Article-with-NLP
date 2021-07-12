@@ -7,13 +7,15 @@ import './styles/footer.scss'
 import './styles/form.scss'
 import './styles/header.scss'
 
-const buttonSubmit = document.getElementById('btn-submit')
+alert("INDEX > CLIENT");
 
-console.log(checkForName);
+export {
+    checkForName,
+    handleSubmit
+}
 
-alert("I EXIST")
-console.log("CHANGE!!");
+const btnInput = document.getElementById('btnSubmit');
 
-window.addEventListener('click', () => {
-    handleSubmit()
+btnInput.addEventListener("click", () => {
+    handleSubmit();
 })
