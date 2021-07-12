@@ -27,7 +27,7 @@ app.get('/', function (req, res) {
 })
 
 // designates what port the app will listen to for incoming requests
-const PORT = 8082;
+const PORT = 3030;
 app.listen(PORT, function () {
     console.log(`Running on localhost: ${PORT}`);
 })
