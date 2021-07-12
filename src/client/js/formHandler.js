@@ -3,9 +3,9 @@ import { checkForName } from './nameChecker'
 const formText = document.getElementById('name').value;
 
 async function getApi(api_key) {
-    const res = await fetch(api_key);
+    const response = await fetch(api_key);
     try {
-        const data = await res.json();
+        const data = await response.json();
         return data;
     } catch (error) {
         console.log(error);
@@ -56,12 +56,12 @@ async function handleSubmit() {
     const request = await fetch('/getData');
     try {
         const lastEntry = await request.json();
-        document.getElementById('text').innerHTML = 'Text: ' + res.model;
-        document.getElementById('agreement').innerHTML = 'Agreement: ' + res.agreement;
-        document.getElementById('subjectivity').innerHTML = 'Subjectivity: ' + res.subjectivity;
-        document.getElementById('confidence').innerHTML = 'Confidence: ' + res.confidence;
-        document.getElementById('irony').innerHTML = 'Irony: ' + res.irony;
-        document.getElementById('score_tag').innerHTML = 'Score: ' + res.score_tag;
+        // document.getElementById('text').innerHTML = 'Text: ' + res.model;
+        // document.getElementById('agreement').innerHTML = 'Agreement: ' + res.agreement;
+        // document.getElementById('subjectivity').innerHTML = 'Subjectivity: ' + res.subjectivity;
+        // document.getElementById('confidence').innerHTML = 'Confidence: ' + res.confidence;
+        // document.getElementById('irony').innerHTML = 'Irony: ' + res.irony;
+        // document.getElementById('score_tag').innerHTML = 'Score: ' + res.score_tag;
     } catch (error) {
         console.log('Error: ', error);
     }
