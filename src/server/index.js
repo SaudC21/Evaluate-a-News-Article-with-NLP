@@ -32,11 +32,10 @@ app.listen(PORT, function () {
     console.log(`Running on localhost: ${PORT}`);
 })
 
-
 app.get('/apiCall', function (req, res) {
     res.send(api_key);
 })
 
-app.get('/data', function (req, res) {
+app.get('/getData', function (req, res) {
     res.send(articleData);
 })
