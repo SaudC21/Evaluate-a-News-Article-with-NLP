@@ -37,5 +37,6 @@ app.get('/apiCall', function (req, res) {
 })
 
 app.get('/getData', function (req, res) {
+    console.log('data recieved: ', articleData);
     res.send(articleData);
 })
