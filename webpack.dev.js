@@ -12,6 +12,42 @@ module.exports = {
         libraryTarget: 'var',
         library: 'Client'
     },
+    devServer: {
+        port: 8082,
+        setup(app) {
+            const bodyParser = require('body-parser');
+            const cors = require('cors');
+            const dotenv = require('dotenv');
+
+            dotenv.config();
+
+            app.use(bodyParser.urlencoded({
+                extended: false
+            }));
+            app.use(bodyParser.json());
+            app.use(cors());
+
+            api_key = {
+               api: process.env.API_KEY
+            }
+
+            articleData = {};
+
+            app.get('/getApiKey', function (req, res) {
+                res.send(api_key);
+            })
+            
+            app.get('/getData', function (req, res) {
+                console.log('data recieved: ');
+                res.send(articleData);
+            })
+            
+            app.post('/postData', function (req, res) {
+                articleData = req.body;
+                console.log('data posted to server');
+            })
+        }
+    },
     module: {
         rules: [
             {

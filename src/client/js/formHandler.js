@@ -1,28 +1,30 @@
-import { checkForName } from './nameChecker'
+import { checkForName } from '../js/nameChecker'
+let formText, apiKey
 
-const formText = document.getElementById('name').value;
-
-async function getApi(api_key) {
-    const response = await fetch(api_key);
+async function getApiKey() {
+    const response = await fetch('/getApiKey');
     try {
         const data = await response.json();
         return data;
     } catch (error) {
-        console.log(error);
+        console.log("ERORR", error);
     }
 }
 
 // 1- check url
-async function checkURL(url) {
+function checkURL(url) {
     if (checkForName(url)) {
+        return url;
+    } else {
+        console.log("Invalid url")
         return url;
     }
 }
 
 // 2- fetch api (article)
-async function articleGeneration() {
-    const apiKey = getApi('/apiCall');
-    const response = await fetch(apiKey);
+async function getApiCall(apiKey) {
+    const apiCall = `https://api.meaningcloud.com/sentiment-2.1?key=${apiKey}&lang=auto&url=${formText}`;
+    const response = await fetch(apiCall);
     try {
         const data = await response.json();
         console.log(data);
@@ -52,20 +54,48 @@ const postArticle = async (url = '', data = {}) => {
 }
 
 async function handleSubmit() {
-    console.log("::: Get data from server :::")
-    const request = await fetch('/getData');
-    try {
-        const lastEntry = await request.json();
-        // document.getElementById('text').innerHTML = 'Text: ' + res.model;
-        // document.getElementById('agreement').innerHTML = 'Agreement: ' + res.agreement;
-        // document.getElementById('subjectivity').innerHTML = 'Subjectivity: ' + res.subjectivity;
-        // document.getElementById('confidence').innerHTML = 'Confidence: ' + res.confidence;
-        // document.getElementById('irony').innerHTML = 'Irony: ' + res.irony;
-        // document.getElementById('score_tag').innerHTML = 'Score: ' + res.score_tag;
-    } catch (error) {
-        console.log('Error: ', error);
+    formText = document.getElementById('name').value;
+    const urlCheck = checkURL(formText);
+
+    if (urlCheck) {
+        try {
+            getApiKey()
+            .then(function (apiKey) {
+                return getApiCall(apiKey.api)
+            })
+            .then(function (data) {
+                postArticle('/postData', data);
+            })
+        } catch (error) {
+            console.log("invalid url", error)
+        }
+        
+    } else {
+        alert("Please double check the URL");
     }
-    // alert('Please enter a valid URL');
+
 }
 
 export { handleSubmit }
+
+
+
+
+
+
+
+
+
+
+// try {
+//     const lastEntry = await request.json();
+//     // document.getElementById('text').innerHTML = 'Text: ' + res.model;
+//     // document.getElementById('agreement').innerHTML = 'Agreement: ' + res.agreement;
+//     // document.getElementById('subjectivity').innerHTML = 'Subjectivity: ' + res.subjectivity;
+//     // document.getElementById('confidence').innerHTML = 'Confidence: ' + res.confidence;
+//     // document.getElementById('irony').innerHTML = 'Irony: ' + res.irony;
+//     // document.getElementById('score_tag').innerHTML = 'Score: ' + res.score_tag;
+// } catch (error) {
+//     console.log('Error: ', error);
+// }
+// alert('Please enter a valid URL');

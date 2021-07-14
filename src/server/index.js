@@ -9,7 +9,9 @@ const dotenv = require('dotenv');
 articleData = {};
 
 dotenv.config();
-const api_key = process.env.API_KEY;
+api_key = {
+    api: process.env.API_KEY
+}
 
 const app = express();
 app.use(cors());
@@ -32,11 +34,16 @@ app.listen(PORT, function () {
     console.log(`Running on localhost: ${PORT}`);
 })
 
-app.get('/apiCall', function (req, res) {
+app.get('/getApiKey', function (req, res) {
     res.send(api_key);
 })
 
 app.get('/getData', function (req, res) {
-    console.log('data recieved: ', articleData);
+    console.log('data recieved: ');
     res.send(articleData);
+})
+
+app.post('/postData', function (req, res) {
+    articleData = req.body;
+    console.log('data posted to server');
 })
