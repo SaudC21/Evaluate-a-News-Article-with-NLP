@@ -12,19 +12,43 @@ export {
     handleSubmit
 }
 
+let modelId = document.getElementById('model');
+let agreementId = document.getElementById('agreement');
+let sujectivityId = document.getElementById('sujectivity');
+let confidenceId = document.getElementById('confidence');
+let ironyId = document.getElementById('irony');
+let scoreTagId = document.getElementById('score_tag');
 const btnInput = document.getElementById('btnSubmit');
 
 btnInput.addEventListener("click", () => {
-    handleSubmit();
+    handleSubmit()
+    updateUI()
 })
 
-async function getArticleData() {
-    const response = await fetch('/getData');
+// async function getArticleData() {
+//     const response = await fetch('/data');
+//     try {
+//         const data = await response.json();
+//         return data;
+//     } catch (error) {
+//         console.log("Error getArticleData: ", error);
+//     }
+// }
+
+const updateUI = async () => {
+    let request = await fetch('/getData');
     try {
-        const data = await response.json();
-        return data;
+        let lastEntry = await request.json();
+        console.log(`
+        LastEntry ${lastEntry}
+        `)
+        modelId.innerHTML = 'Model: ' + lastEntry.model;
+        agreementId.innerHTML = 'Agreement: ' + lastEntry.agreement;
+        sujectivityId.innerHTML = 'Subjectivity: ' + lastEntry.sujectivity;
+        confidenceId.innerHTML = 'Confidence: ' + lastEntry.confidence;
+        ironyId.innerHTML = 'Irony: ' + lastEntry.irony;
+        scoreTagId.innerHTML = 'Score tag: ' + lastEntry.score_tag;
     } catch (error) {
-        console.log("ERORR", error);
+        console.log("Error updateUI: ", error);
     }
 }
-

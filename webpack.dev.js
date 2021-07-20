@@ -46,6 +46,11 @@ module.exports = {
                 articleData = req.body;
                 console.log('data posted to server');
             })
+
+            app.get('/data', function (req, res) {
+                console.log('data to index.js');
+                res.send(articleData);
+            })
         }
     },
     module: {

@@ -39,11 +39,16 @@ app.get('/getApiKey', function (req, res) {
 })
 
 app.get('/getData', function (req, res) {
-    console.log('data recieved: ');
+    console.log('data to formHandler:');
     res.send(articleData);
 })
 
 app.post('/postData', function (req, res) {
     articleData = req.body;
     console.log('data posted to server');
+})
+
+app.get('/data', function (req, res) {
+    console.log('data to index.js');
+    res.send(articleData);
 })
