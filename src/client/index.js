@@ -14,7 +14,7 @@ export {
 
 let modelId = document.getElementById('model');
 let agreementId = document.getElementById('agreement');
-let sujectivityId = document.getElementById('sujectivity');
+let subjectivityId = document.getElementById('subjectivity');
 let confidenceId = document.getElementById('confidence');
 let ironyId = document.getElementById('irony');
 let scoreTagId = document.getElementById('score_tag');
@@ -37,6 +37,12 @@ btnInput.addEventListener("click", () => {
 
 const updateUI = async () => {
     let request = await fetch('/getData');
+    modelId.innerHTML = '';
+    agreementId.innerHTML = '';
+    subjectivityId.innerHTML = '';
+    confidenceId.innerHTML = '';
+    ironyId.innerHTML = '';
+    scoreTagId.innerHTML = '';
     try {
         let lastEntry = await request.json();
         console.log(`
@@ -44,7 +50,7 @@ const updateUI = async () => {
         `)
         modelId.innerHTML = 'Model: ' + lastEntry.model;
         agreementId.innerHTML = 'Agreement: ' + lastEntry.agreement;
-        sujectivityId.innerHTML = 'Subjectivity: ' + lastEntry.sujectivity;
+        subjectivityId.innerHTML = 'Subjectivity: ' + lastEntry.subjectivity;
         confidenceId.innerHTML = 'Confidence: ' + lastEntry.confidence;
         ironyId.innerHTML = 'Irony: ' + lastEntry.irony;
         scoreTagId.innerHTML = 'Score tag: ' + lastEntry.score_tag;
