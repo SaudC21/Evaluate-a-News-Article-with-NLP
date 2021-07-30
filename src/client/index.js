@@ -25,16 +25,6 @@ btnInput.addEventListener("click", () => {
     updateUI()
 })
 
-// async function getArticleData() {
-//     const response = await fetch('/data');
-//     try {
-//         const data = await response.json();
-//         return data;
-//     } catch (error) {
-//         console.log("Error getArticleData: ", error);
-//     }
-// }
-
 const updateUI = async () => {
     let request = await fetch('/getData');
     modelId.innerHTML = '';

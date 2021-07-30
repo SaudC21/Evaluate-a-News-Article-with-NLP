@@ -1,6 +1,7 @@
 import { checkForName } from '../js/nameChecker'
 let formText, apiKey
 
+// Function to GET the api key from server side
 async function getApiKey() {
     const response = await fetch('/getApiKey');
     try {
@@ -11,7 +12,7 @@ async function getApiKey() {
     }
 }
 
-// 1- check url
+// Function to check the url if it's valid
 function checkURL(url) {
     if (checkForName(url)) {
         return url;
@@ -21,7 +22,7 @@ function checkURL(url) {
     }
 }
 
-// 2- fetch api (article)
+// Function to fetch api data
 async function getApiCall(apiKey) {
     const apiCall = `https://api.meaningcloud.com/sentiment-2.1?key=${apiKey}&lang=auto&url=${formText}`;
     const response = await fetch(apiCall);
@@ -34,7 +35,7 @@ async function getApiCall(apiKey) {
     }
 }
 
-/* Function to POST data */ // 3- post to server
+// Function to POST data to server
 const postArticle = async (url = '', data = {}) => {
     const response = await fetch(url, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -53,9 +54,10 @@ const postArticle = async (url = '', data = {}) => {
     }
 }
 
+// Function to deal input when it's submitted
 async function handleSubmit() {
     formText = document.getElementById('name').value;
-    const urlCheck = checkURL(formText);
+    const urlCheck = checkURL(formText); // Call the checkURL function
 
     if (urlCheck) {
         try {
