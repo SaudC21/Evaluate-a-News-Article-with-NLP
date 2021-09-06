@@ -24,8 +24,10 @@
             </form>
         </section>
         <!-- URL data  -->
-        <section id="results">
-            <div id="form_header">Form Results:</div>
+        <section>
+            <strong>
+                <div id="results"></div>Form Results:</div>
+            </strong>
             <div id="model"></div>
             <div id="agreement"></div>
             <div id="subjectivity"></div>
@@ -36,11 +38,18 @@
     </main>
 
     <footer>
-        <div class="copyright">
-            <p>© Saud Al-Slimany, 2021.</p>
-        </div>
+        <p>This is a footer</p>
     </footer>
 
+    <script>
+        // Check that service workers are supported
+        if ('serviceWorker' in navigator) {
+            // Use the window load event to keep the page load performant
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js');
+            });
+        }
+    </script>
 </body>
 
 </html>

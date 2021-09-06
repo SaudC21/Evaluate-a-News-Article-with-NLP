@@ -22,10 +22,13 @@ module.exports = {
             dotenv.config();
 
             app.use(bodyParser.urlencoded({
-                extended: false
+                limit: '50mb',
+                extended: true,
+                parameterLimit: 50000
             }));
-            app.use(bodyParser.json());
+            app.use(bodyParser.json({limit:'50mb'}));
             app.use(cors());
+
 
             api_key = {
                api: process.env.API_KEY

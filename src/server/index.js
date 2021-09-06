@@ -16,9 +16,11 @@ api_key = {
 const app = express();
 app.use(cors());
 app.use(bodyParser.urlencoded({
-    extended: false
+    limit: '50mb',
+    extended: true,
+    parameterLimit: 50000
 }));
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit:'50mb'}));
 app.use(express.static('dist'));
 
 // app.use(express.static(__dirname + '/public'));
@@ -36,6 +38,7 @@ app.listen(PORT, function () {
 
 app.get('/getApiKey', function (req, res) {
     res.send(api_key);
+
 })
 
 app.get('/getData', function (req, res) {
@@ -46,6 +49,7 @@ app.get('/getData', function (req, res) {
 app.post('/postData', function (req, res) {
     articleData = req.body;
     console.log('data posted to server');
+    return articleData;
 })
 
 app.get('/data', function (req, res) {

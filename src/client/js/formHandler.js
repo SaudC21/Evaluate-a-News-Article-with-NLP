@@ -66,7 +66,7 @@ async function handleSubmit() {
                 return getApiCall(apiKey.api)
             })
             .then(function (data) {
-                postArticle('/postData', data);
+                return postArticle('/postData', data);
             })
         } catch (error) {
             console.log("invalid url", error)

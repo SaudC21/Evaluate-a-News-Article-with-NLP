@@ -20,19 +20,25 @@ let ironyId = document.getElementById('irony');
 let scoreTagId = document.getElementById('score_tag');
 const btnInput = document.getElementById('btnSubmit');
 
-btnInput.addEventListener("click", () => {
+btnInput.addEventListener("click", async () => {
     handleSubmit()
-    updateUI()
+    .then(
+        updateUI()
+    )
 })
 
-const updateUI = async () => {
-    let request = await fetch('/getData');
+function erase () {
     modelId.innerHTML = '';
     agreementId.innerHTML = '';
     subjectivityId.innerHTML = '';
     confidenceId.innerHTML = '';
     ironyId.innerHTML = '';
     scoreTagId.innerHTML = '';
+}
+
+const updateUI = async () => {
+    let request = await fetch('/getData');
+    erase();
     try {
         let lastEntry = await request.json();
         console.log(`
