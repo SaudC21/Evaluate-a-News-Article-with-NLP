@@ -22,12 +22,14 @@ const btnInput = document.getElementById('btnSubmit');
 
 btnInput.addEventListener("click", async () => {
     handleSubmit()
-    .then(
-        updateUI()
-    )
+        .then(
+            setTimeout(function () {
+            updateUI()
+            }, 10000)
+        )
 })
 
-function erase () {
+function erase() {
     modelId.innerHTML = '';
     agreementId.innerHTML = '';
     subjectivityId.innerHTML = '';
