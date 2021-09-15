@@ -1,6 +1,5 @@
 var path = require('path');
 const express = require('express');
-// const mockAPIResponse = require('./mockAPI.js');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const dotenv = require('dotenv');
@@ -31,8 +30,8 @@ app.get('/', function (req, res) {
 })
 
 // designates what port the app will listen to for incoming requests
-const PORT = 3030||process.env.PORT;
-app.listen(PORT, function () {
+const PORT = 3030 || process.env.PORT;
+app.listen(PORT, '0.0.0.0', function () {
     console.log(`Running on localhost: ${PORT}`);
 })
 
@@ -42,7 +41,6 @@ app.get('/getApiKey', function (req, res) {
 })
 
 app.get('/getData', function (req, res) {
-    console.log('data to formHandler:');
     res.send(articleData);
 })
 
@@ -53,6 +51,5 @@ app.post('/postData', function (req, res) {
 })
 
 app.get('/data', function (req, res) {
-    console.log('data to index.js');
     res.send(articleData);
 })

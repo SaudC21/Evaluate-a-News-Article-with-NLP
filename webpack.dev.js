@@ -13,7 +13,7 @@ module.exports = {
         library: 'Client'
     },
     devServer: {
-        port: 8082||process.env.PORT,
+        port: 8082 || process.env.PORT,
         setup(app) {
             const bodyParser = require('body-parser');
             const cors = require('cors');
@@ -41,17 +41,16 @@ module.exports = {
             })
             
             app.get('/getData', function (req, res) {
-                console.log('data recieved: ');
+                console.log('Client recieved data');
                 res.send(articleData);
             })
             
             app.post('/postData', function (req, res) {
                 articleData = req.body;
-                console.log('data posted to server');
+                console.log('Data posted to server');
             })
 
             app.get('/data', function (req, res) {
-                console.log('data to index.js');
                 res.send(articleData);
             })
         }

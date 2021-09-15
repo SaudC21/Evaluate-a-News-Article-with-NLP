@@ -1,5 +1,12 @@
 import { checkForName } from '../js/nameChecker'
+
 let formText, apiKey
+let modelId = document.getElementById('model');
+let agreementId = document.getElementById('agreement');
+let subjectivityId = document.getElementById('subjectivity');
+let confidenceId = document.getElementById('confidence');
+let ironyId = document.getElementById('irony');
+let scoreTagId = document.getElementById('score_tag');
 
 // Function to GET the api key from server side
 async function getApiKey() {
@@ -45,13 +52,6 @@ const postArticle = async (url = '', data = {}) => {
         },
         body: JSON.stringify(data), // body data type must match "Content-Type" header        
     });
-
-    try {
-        const newData = await response.json();
-        return newData;
-    } catch (error) {
-        console.log(error);
-    }
 }
 
 // Function to deal input when it's submitted
@@ -66,7 +66,10 @@ async function handleSubmit() {
                 return getApiCall(apiKey.api)
             })
             .then(function (data) {
-                return postArticle('/postData', data);
+                postArticle('/postData', data)
+            })
+            .then(function () {
+                updateUI()
             })
         } catch (error) {
             console.log("invalid url", error)
@@ -76,6 +79,31 @@ async function handleSubmit() {
         alert("Please double check the URL");
     }
 
+}
+
+function erase() {
+    modelId.innerHTML = '';
+    agreementId.innerHTML = '';
+    subjectivityId.innerHTML = '';
+    confidenceId.innerHTML = '';
+    ironyId.innerHTML = '';
+    scoreTagId.innerHTML = '';
+}
+
+const updateUI = async () => {
+    let request = await fetch('/getData');
+    erase();
+    try {
+        let lastEntry = await request.json();
+        modelId.innerHTML = 'Model: ' + lastEntry.model;
+        agreementId.innerHTML = 'Agreement: ' + lastEntry.agreement;
+        subjectivityId.innerHTML = 'Subjectivity: ' + lastEntry.subjectivity;
+        confidenceId.innerHTML = 'Confidence: ' + lastEntry.confidence;
+        ironyId.innerHTML = 'Irony: ' + lastEntry.irony;
+        scoreTagId.innerHTML = 'Score tag: ' + lastEntry.score_tag;
+    } catch (error) {
+        console.log("Error updateUI: ", error);
+    }
 }
 
 export { handleSubmit }
