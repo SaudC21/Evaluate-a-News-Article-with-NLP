@@ -13,7 +13,7 @@ module.exports = {
         library: 'Client'
     },
     devServer: {
-        port: 8082 || process.env.PORT,
+        port: process.env.PORT || 5000,
         setup(app) {
             const bodyParser = require('body-parser');
             const cors = require('cors');

@@ -30,7 +30,7 @@ app.get('/', function (req, res) {
 })
 
 // designates what port the app will listen to for incoming requests
-const PORT = 3030 || process.env.PORT;
+const PORT = process.env.PORT || 3030;
 app.listen(PORT, '0.0.0.0', function () {
     console.log(`Running on localhost: ${PORT}`);
 })
