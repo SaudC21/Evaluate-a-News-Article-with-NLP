@@ -105,10 +105,14 @@ const updateUI = async () => {
     try {
         let lastEntry = await request.json();
         resultsId.innerHTML = 'Results';
-        modelId.innerHTML = 'Model: ' + lastEntry.model;
+        if(lastEntry.model == 'general_en') {
+            modelId.innerHTML = 'Model: English';
+        } else {
+            modelId.innerHTML = 'Model: ' + lastEntry.model;
+        }
         agreementId.innerHTML = 'Agreement: ' + lastEntry.agreement;
         subjectivityId.innerHTML = 'Subjectivity: ' + lastEntry.subjectivity;
-        confidenceId.innerHTML = 'Confidence: ' + lastEntry.confidence;
+        confidenceId.innerHTML = 'Confidence: ' + lastEntry.confidence + '%';
         ironyId.innerHTML = 'Irony: ' + lastEntry.irony;
         scoreTagId.innerHTML = 'Score tag: ' + lastEntry.score_tag;
     } catch (error) {
