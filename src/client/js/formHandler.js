@@ -66,6 +66,7 @@ async function handleSubmit() {
         try {
             getApiKey()
             .then(function (apiKey) {
+                console.log(apiKey.api)
                 return getApiCall(apiKey.api)
             })
             .then(function (data) {
