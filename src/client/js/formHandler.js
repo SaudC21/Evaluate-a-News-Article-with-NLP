@@ -1,6 +1,7 @@
 import { checkForName } from '../js/nameChecker'
 
 let formText, apiKey
+let resultsId = document.getElementById('results');
 let modelId = document.getElementById('model');
 let agreementId = document.getElementById('agreement');
 let subjectivityId = document.getElementById('subjectivity');
@@ -35,7 +36,6 @@ async function getApiCall(apiKey) {
     const response = await fetch(apiCall);
     try {
         const data = await response.json();
-        console.log(data);
         return data;
     } catch (error) {
         console.log("error: ", error);
@@ -56,6 +56,9 @@ const postArticle = async (url = '', data = {}) => {
 
 // Function to deal input when it's submitted
 async function handleSubmit() {
+    erase()
+    waiting()
+
     formText = document.getElementById('name').value;
     const urlCheck = checkURL(formText); // Call the checkURL function
 
@@ -81,7 +84,14 @@ async function handleSubmit() {
 
 }
 
+// It will print 'Waiting..' until the user recive the info
+function waiting() {
+    resultsId.innerHTML = 'Information are coming...';
+}
+
+// This function will erase all results
 function erase() {
+    resultsId.innerHTML = '';
     modelId.innerHTML = '';
     agreementId.innerHTML = '';
     subjectivityId.innerHTML = '';
@@ -92,9 +102,9 @@ function erase() {
 
 const updateUI = async () => {
     let request = await fetch('/getData');
-    erase();
     try {
         let lastEntry = await request.json();
+        resultsId.innerHTML = 'Results';
         modelId.innerHTML = 'Model: ' + lastEntry.model;
         agreementId.innerHTML = 'Agreement: ' + lastEntry.agreement;
         subjectivityId.innerHTML = 'Subjectivity: ' + lastEntry.subjectivity;
